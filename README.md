@@ -1,6 +1,6 @@
 # mac-k3s-sample
 
-# crrate k3s
+# create k3s
 
 ```bash
 # run docker
