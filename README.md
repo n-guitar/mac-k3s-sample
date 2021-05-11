@@ -125,3 +125,34 @@ $ pip install kubernetes
 # pods all
 $ python ./src/list_all_pods.py
 ```
+
+## create namespace/sa/role/rolebinding
+
+```bash
+$ kubectl apply -f ./sample/python-tool-namespace.yaml
+$ kubectl apply -f ./sample/python-service-app-sa.yaml
+$ kubectl apply -f ./sample/service-admin-role.yaml
+$ kubectl apply -f ./sample/service-admin-rolebinding-python-service-app.yaml
+```
+
+### test
+
+```bash
+$ TOKEN=$(kubectl describe secrets $(kubectl describe sa python-service-app -n python-tool | grep Tokens: | awk '{print $2}') -n python-tool|grep token:| awk '{print $2}')
+$ curl -X GET https://127.0.0.1:6443/api/v1/namespaces/python-tool/services --header "Authorization: Bearer $TOKEN" --insecure
+```
+
+# javascript client
+
+https://github.com/kubernetes-client/javascript
+
+## setup python
+
+```bash
+$ npm --version
+7.11.2
+$ cd ./src/javascript
+
+# k8s client
+$ npm install @kubernetes/client-node
+```

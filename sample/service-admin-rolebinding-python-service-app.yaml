@@ -1,0 +1,14 @@
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  creationTimestamp: null
+  name: service-admin
+  namespace: python-tool
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: Role
+  name: service-admin
+subjects:
+- kind: ServiceAccount
+  name: python-service-app
+  namespace: python-tool

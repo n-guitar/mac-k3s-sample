@@ -1,0 +1,36 @@
+{
+    "kind": "Deployment",
+    "apiVersion": "apps/v1",
+    "metadata": {
+        "name": "api-test-json",
+        "namespace": "apitest",
+        "labels": {
+            "app": "api-test-json"
+        }
+    },
+    "spec": {
+        "replicas": 3,
+        "selector": {
+            "matchLabels": {
+                "app": "api-test-json"
+            }
+        },
+        "template": {
+            "metadata": {
+                "labels": {
+                    "app": "api-test-json"
+                }
+            },
+            "spec": {
+                "containers": [
+                    {
+                        "name": "nginx-json",
+                        "image": "nginx:alpine",
+                        "resources": {}
+                    }
+                ]
+            }
+        },
+        "strategy": {}
+    }
+}

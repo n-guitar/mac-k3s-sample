@@ -127,3 +127,12 @@ dmypy.json
 
 # Pyre type checker
 .pyre/
+
+# node
+src/javascript/node_modules
+
+# josn sample
+ret_json
+
+# k8s config
+kubeconfig.yaml

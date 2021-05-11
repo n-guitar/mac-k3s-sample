@@ -1,0 +1,22 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: api-test
+  name: api-test
+  namespace: apitest
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: api-test
+  strategy: {}
+  template:
+    metadata:
+      labels:
+        app: api-test
+    spec:
+      serviceAccount: admin-sa
+      containers:
+      - image: nginx:alpine
+        name: nginx
