@@ -1,0 +1,7 @@
+stages:
+- name: apply yaml
+  steps:
+  - applyYamlConfig:
+      path: ./manifests/namespaces/vue-namespace.yaml
+timeout: 60
+notification: {}
