@@ -74,7 +74,7 @@ cert-manager-webhook-6846f844ff-8tj55      1/1     Running   0          22s
 
 $ helm repo add rancher-stable https://releases.rancher.com/server-charts/stable
 $ kubectl create namespace cattle-system
-$ helm install my-rancher rancher-stable/rancher --version 2.5.7 \
+$ helm install my-rancher rancher-stable/rancher --version 2.5.8 \
   --namespace cattle-system \
   --set hostname=rancher.k3s.mac.domain
 ```
@@ -130,7 +130,7 @@ $ python ./src/list_all_pods.py
 
 ```bash
 $ kubectl apply -f ./sample/python-tool-namespace.yaml
-$ kubectl apply -f ./sample/python-service-app-sa.yaml
+$ kubectl apply -f ./sample/-sa.yaml
 $ kubectl apply -f ./sample/service-admin-role.yaml
 $ kubectl apply -f ./sample/service-admin-rolebinding-python-service-app.yaml
 ```
@@ -155,4 +155,43 @@ $ cd ./src/javascript
 
 # k8s client
 $ npm install @kubernetes/client-node
+```
+
+## vue-app
+
+## create namespace/sa/role/rolebinding
+
+```bash
+$ kubectl apply -f ./sample/vue-namespace.yaml
+$ kubectl apply -f ./sample/vue-service-app-sa.yaml
+$ kubectl apply -f ./sample/vue-app-cluster-admin-binding.yaml
+```
+
+```bash
+$ TOKEN=$(kubectl describe secrets $(kubectl describe sa vue-service-app -n vue-app | grep Tokens: | awk '{print $2}') -n vue-app|grep token:| awk '{print $2}')
+$ curl -X GET https://127.0.0.1:6443/api/v1/pods --header "Authorization: Bearer $TOKEN" --insecure
+$ curl -X GET https://127.0.0.1:6443/api/v1/nodes --header "Authorization: Bearer $TOKEN" --insecure
+$ curl -X GET https://127.0.0.1:6443/api/v1/services --header "Authorization: Bearer $TOKEN" --insecure
+$ curl -X GET https://127.0.0.1:6443/api/v1/namespaces --header "Authorization: Bearer $TOKEN" --insecure
+
+```
+
+# raspberry pi (ubuntu)
+
+```bash
+$ curl -sfL https://get.k3s.io | sh -
+
+```
+
+# remove k3s
+
+```bash
+# run docker
+$ K3S_TOKEN=${RANDOM}${RANDOM}${RANDOM} docker-compose down
+```
+
+## remove data
+
+```bash
+$ docker volume rm mac-k3s-sample_k3s-server
 ```
